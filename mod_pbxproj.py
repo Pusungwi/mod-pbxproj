@@ -579,6 +579,13 @@ class XcodeProject(PBXDict):
         for k, v in self.objects.iteritems():
             v.id = k
 
+    def add_other_flags_from_key(self, key, flags):
+        build_configs = [b for b in self.objects.values() if b.get('isa') == 'XCBuildConfiguration']
+
+        for b in build_configs:
+            if b.add_other_flags_from_key(key, flags):
+                self.modified = True
+
     def add_other_cflags(self, flags):
         build_configs = [b for b in self.objects.values() if b.get('isa') == 'XCBuildConfiguration']
 

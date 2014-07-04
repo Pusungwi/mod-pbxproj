@@ -509,7 +509,7 @@ class XCBuildConfiguration(PBXType):
         base = 'buildSettings'
         key = 'OTHER_CFLAGS'
 
-        modified = add_other_flags_from_key(key, flags)
+        modified = self.add_other_flags_from_key(key, flags)
 
         return modified
 
@@ -517,7 +517,7 @@ class XCBuildConfiguration(PBXType):
         base = 'buildSettings'
         key = 'OTHER_LDFLAGS'
 
-        modified = add_other_flags_from_key(key, flags)
+        modified = self.add_other_flags_from_key(key, flags)
 
         return modified
 

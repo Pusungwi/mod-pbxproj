@@ -482,11 +482,10 @@ class XCBuildConfiguration(PBXType):
     def add_framework_search_paths(self, paths, recursive=True):
         return self.add_search_paths(paths, 'buildSettings', 'FRAMEWORK_SEARCH_PATHS', recursive=recursive)
 
-    def add_other_cflags(self, flags):
+    def add_other_flags_from_key(self, key, flags):
         modified = False
 
         base = 'buildSettings'
-        key = 'OTHER_CFLAGS'
 
         if isinstance(flags, basestring):
             flags = PBXList(flags)
@@ -506,27 +505,19 @@ class XCBuildConfiguration(PBXType):
 
         return modified
 
-    def add_other_ldflags(self, flags):
-        modified = False
+    def add_other_cflags(self, flags):
+        base = 'buildSettings'
+        key = 'OTHER_CFLAGS'
 
+        modified = add_other_flags_from_key(key, flags)
+
+        return modified
+
+    def add_other_ldflags(self, flags):
         base = 'buildSettings'
         key = 'OTHER_LDFLAGS'
 
-        if isinstance(flags, basestring):
-            flags = PBXList(flags)
-
-        if base not in self:
-            self[base] = PBXDict()
-
-        for flag in flags:
-            if key not in self[base]:
-                self[base][key] = PBXList()
-            elif isinstance(self[base][key], basestring):
-                self[base][key] = PBXList(self[base][key])
-
-            if self[base][key].add(flag):
-                self[base][key] = [e for e in self[base][key] if e]
-                modified = True
+        modified = add_other_flags_from_key(key, flags)
 
         return modified
 

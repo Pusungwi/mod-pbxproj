@@ -832,7 +832,8 @@ class XcodeProject(PBXDict):
                 break
 
         for r in results:
-            self.objects[r.id] = r
+            if r is not None:
+                self.objects[r.id] = r
 
         return results
 

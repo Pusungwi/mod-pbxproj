@@ -506,17 +506,13 @@ class XCBuildConfiguration(PBXType):
         return modified
 
     def add_other_cflags(self, flags):
-        base = 'buildSettings'
         key = 'OTHER_CFLAGS'
-
         modified = self.add_other_flags_from_key(key, flags)
 
         return modified
 
     def add_other_ldflags(self, flags):
-        base = 'buildSettings'
         key = 'OTHER_LDFLAGS'
-
         modified = self.add_other_flags_from_key(key, flags)
 
         return modified
